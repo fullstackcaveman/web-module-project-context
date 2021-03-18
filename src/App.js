@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 
@@ -28,7 +28,9 @@ function App() {
 	};
 
 	const deleteItemHandler = (id) => {
-		setCart(cart.filter((cartItem) => cartItem.id !== id));
+		const newCart = cart.filter((cartItem) => cartItem.id !== id);
+		setCart(newCart);
+		localStorage.setItem('cart', JSON.stringify(newCart));
 	};
 
 	return (
