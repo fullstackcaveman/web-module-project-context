@@ -3,14 +3,15 @@ import React from 'react';
 // Components
 import Product from './Product';
 
-const Products = props => {
+const Products = (props) => {
+	console.log(props);
 	return (
-		<div className="products-container">
-			{props.products.map(product => (
+		<div className='products-container'>
+			{props.products.map((product) => (
 				<Product
 					key={product.id}
 					product={product}
-					addItem={props.addItem}
+					addItem={() => props.addItem(product)}
 				/>
 			))}
 		</div>

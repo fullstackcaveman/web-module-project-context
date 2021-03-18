@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 
@@ -11,20 +11,28 @@ function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
 
-	const addItem = item => {
-		// add the given item to the cart
+	const addItem = (item) => {
+		if (cart.includes(item)) {
+			window.alert(`${item.title} is already in the cart`);
+		} else {
+			setCart([...cart, item]);
+		}
 	};
 
+	useEffect(() => {
+		console.log(cart);
+	}, [cart]);
+
 	return (
-		<div className="App">
+		<div className='App'>
 			<Navigation cart={cart} />
 
 			{/* Routes */}
-			<Route exact path="/">
+			<Route exact path='/'>
 				<Products products={products} addItem={addItem} />
 			</Route>
 
-			<Route path="/cart">
+			<Route path='/cart'>
 				<ShoppingCart cart={cart} />
 			</Route>
 		</div>
