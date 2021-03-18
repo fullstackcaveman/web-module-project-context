@@ -22,10 +22,14 @@ function App() {
 		}
 	};
 
+	const deleteItemHandler = (id) => {
+		setCart(cart.filter((cartItem) => cartItem.id !== id));
+	};
+
 	return (
 		<div className='App'>
 			<ProductContext.Provider value={{ products, addItem }}>
-				<CartContext.Provider value={{ cart }}>
+				<CartContext.Provider value={{ cart, setCart, deleteItemHandler }}>
 					<Navigation cart={cart} />
 
 					{/* Routes */}
