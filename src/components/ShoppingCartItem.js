@@ -1,8 +1,7 @@
 import React from 'react';
 
 const Item = (props) => {
-	const { image, title, price, id, deleteItem, cart } = props;
-	console.log(cart);
+	const { image, title, price, id, deleteItem } = props;
 	return (
 		<div className='shopping-cart_item'>
 			<img src={image} alt={`${title} book`} />

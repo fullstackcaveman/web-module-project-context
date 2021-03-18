@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 
@@ -14,6 +14,15 @@ function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
 
+	useEffect(() => {
+		if (!localStorage.cart) {
+			localStorage.setItem('cart', JSON.stringify([]));
+		}
+		const initialCart = JSON.parse(localStorage.getItem('cart'));
+		console.log(initialCart);
+		setCart(initialCart);
+	}, []);
+
 	const addItem = (item) => {
 		if (cart.includes(item)) {
 			window.alert(`${item.title} is already in the cart`);
@@ -22,13 +31,20 @@ function App() {
 		}
 	};
 
+	const setToLocalStorage = (item) => {
+		const cartStorage = [...cart, item];
+		localStorage.setItem('cart', JSON.stringify(cartStorage));
+	};
+
 	const deleteItemHandler = (id) => {
-		setCart(cart.filter((cartItem) => cartItem.id !== id));
+		const newCart = cart.filter((cartItem) => cartItem.id !== id);
+		setCart(newCart);
+		localStorage.setItem('cart', JSON.stringify(newCart));
 	};
 
 	return (
 		<div className='App'>
-			<ProductContext.Provider value={{ products, addItem }}>
+			<ProductContext.Provider value={{ products, addItem, setToLocalStorage }}>
 				<CartContext.Provider value={{ cart, setCart, deleteItemHandler }}>
 					<Navigation cart={cart} />
 
