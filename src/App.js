@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 
@@ -22,13 +22,18 @@ function App() {
 		}
 	};
 
+	const setToLocalStorage = (item) => {
+		const cartStorage = [...cart, item];
+		localStorage.setItem('cart', JSON.stringify(cartStorage));
+	};
+
 	const deleteItemHandler = (id) => {
 		setCart(cart.filter((cartItem) => cartItem.id !== id));
 	};
 
 	return (
 		<div className='App'>
-			<ProductContext.Provider value={{ products, addItem }}>
+			<ProductContext.Provider value={{ products, addItem, setToLocalStorage }}>
 				<CartContext.Provider value={{ cart, setCart, deleteItemHandler }}>
 					<Navigation cart={cart} />
 
