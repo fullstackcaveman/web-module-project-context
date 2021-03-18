@@ -1,15 +1,16 @@
 import React from 'react';
 
-const Item = props => {
+const Item = (props) => {
+	const { image, title, price, id, deleteItem, cart } = props;
+	console.log(cart);
 	return (
-		<div className="shopping-cart_item">
-			<img src={props.image} alt={`${props.title} book`} />
-
+		<div className='shopping-cart_item'>
+			<img src={image} alt={`${title} book`} />
 
 			<div>
-				<h1>{props.title}</h1>
-				<p>$ {props.price}</p>
-				<button>Remove from cart</button>
+				<h1>{title}</h1>
+				<p>$ {price}</p>
+				<button onClick={() => deleteItem(id)}>Remove from cart</button>
 			</div>
 		</div>
 	);
