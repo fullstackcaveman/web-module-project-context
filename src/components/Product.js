@@ -1,17 +1,20 @@
 import React from 'react';
 
-const Product = props => {
+const Product = (props) => {
+	const handleClick = () => {
+		props.addItem(props.product);
+		props.localStorage(props.product);
+	};
+
 	return (
-		<div className="product">
+		<div className='product'>
 			<img src={props.product.image} alt={`${props.product.title} book`} />
 
-			<h1 className="title">{props.product.title}</h1>
+			<h1 className='title'>{props.product.title}</h1>
 
-			<p className="price">${props.product.price}</p>
+			<p className='price'>${props.product.price}</p>
 
-			<button onClick={() => props.addItem(props.product)}>
-				Add to cart
-			</button>
+			<button onClick={handleClick}>Add to cart</button>
 		</div>
 	);
 };
